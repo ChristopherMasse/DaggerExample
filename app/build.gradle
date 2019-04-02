@@ -18,8 +18,29 @@ android {
     }
 }
 
+ext{
+    daggerVersion = '2.21' // 2019.03.31
+    androidX = '1.0.0' // 2019.03.31 -must sync
+
+    myDependencies = [
+        daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerVersion}",
+        dagger:                 "com.google.dagger:dagger:${daggerVersion}",
+        daggerSupport:          "com.google.dagger:dagger-android-support:${daggerVersion}",
+
+        appCompat:              "androidx.appcompat:appcompat:${androidX}",
+        supportAnnotations:     "androidx.annotation:annotation:${androidX}",
+        supportDesign:          "com.google.android.material:material:${androidX}",
+        cardView:               "androidx.cardview:cardview:${androidX}",
+        recyclerView:           "androidx.recyclerview:recyclerview:${androidX}",
+    ]
+
+}
+
+
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation myDependencies.recyclerView
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
