@@ -22,6 +22,7 @@ android {
 ext{
     daggerVersion = '2.21'
     androidX = '1.0.0'
+    gsonVersion = '2.8.5'
 
     myDependencies = [
         daggerCompiler:         "com.google.dagger:dagger-compiler:${daggerVersion}",
@@ -33,6 +34,8 @@ ext{
         supportDesign:          "com.google.android.material:material:${androidX}",
         cardView:               "androidx.cardview:cardview:${androidX}",
         recyclerView:           "androidx.recyclerview:recyclerview:${androidX}",
+
+        gson:                   "com.google.code.gson:gson:${gsonVersion}"
     ]
 
 }
@@ -51,6 +54,8 @@ dependencies {
     implementation myDependencies.supportDesign
     implementation myDependencies.cardView
     implementation myDependencies.recyclerView
+
+    implementation myDependencies.gson
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
