@@ -26,16 +26,19 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = DetailActivity.class.getSimpleName();
 
     @Inject
-    UnscopedCar mCar1; //will vary per act
+    UnscopedCar mCar1; // will vary per activity
+
+
 
     @Inject
-    Car mCar2;
+    Car mCar2; // car2 and car3 will be the same for a single activity
 
     @Inject
-    Car mCar3;
+    Car mCar3; // car2 and car3 will be the same for a single activity
+
 
     @Inject
-    LimitedEditionCar mCar4;
+    LimitedEditionCar mCar4; // will be the same for each run of the application
 
     @Inject
     Gson mGson;
