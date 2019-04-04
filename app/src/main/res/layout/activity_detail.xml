@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <FrameLayout
+    <ScrollView
         android:id="@+id/content_frame"
         android:layout_weight="8"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </FrameLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/navigator"

@@ -7,11 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.christophermasse.daggerexample.App;
 import com.christophermasse.daggerexample.R;
+import com.christophermasse.daggerexample.di.component.CarComponent;
 import com.christophermasse.daggerexample.di.component.DaggerCarComponent;
 import com.christophermasse.daggerexample.model.Car;
+import com.christophermasse.daggerexample.model.LimitedEditionCar;
+import com.christophermasse.daggerexample.model.UnscopedCar;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import javax.inject.Inject;
 
@@ -23,7 +26,19 @@ public class DetailActivity extends AppCompatActivity {
     private static final String TAG = DetailActivity.class.getSimpleName();
 
     @Inject
-    Car car;
+    UnscopedCar mCar1; //will vary per act
+
+    @Inject
+    Car mCar2;
+
+    @Inject
+    Car mCar3;
+
+    @Inject
+    LimitedEditionCar mCar4;
+
+    @Inject
+    Gson mGson;
 
     TextView wTextView;
 
@@ -38,24 +53,12 @@ public class DetailActivity extends AppCompatActivity {
 
         wButton = findViewById(R.id.button);
 
-//         Tell Dagger to provide dependencies to this activity
-        DaggerCarComponent.builder().build()
-                .inject(this);
 
-        //Show the details of the car;
-        Gson gson = new GsonBuilder().serializeNulls().create(); //this is also injected, skip
-        String carObjectInfo = gson.toJson(car);
-        wTextView.setText(carObjectInfo);
+        performDaggerInjection();
 
+        showCarDetails();
 
-
-        //Log the hashcodes of the objects
-        String gsonLog = "Gson instance: " + System.identityHashCode(gson);
-        String carLog = "Car instance: " + System.identityHashCode(car);
-        Log.d(TAG, gsonLog);
-        Log.d(TAG, carLog);
-
-
+        logHashCodes();
 
         wButton.setText("Open another activity");
         // Open another activity on Button Click
@@ -66,6 +69,39 @@ public class DetailActivity extends AppCompatActivity {
                 DetailActivity.this.startActivity(intent);
             }
         });
+    }
+
+    private void performDaggerInjection() {
+        CarComponent carComponent = DaggerCarComponent.builder()
+                .appComponent(((App)(getApplication())).getAppComponent()) // Get dependency for gson &
+                .build();
+        carComponent.inject(this);
+    }
+
+    private void showCarDetails() {
+        //Show the details of the mCar1;
+        String carObjectInfo = mGson.toJson(mCar1)+ "\n \n"
+                + mGson.toJson(mCar2) + "\n \n"
+                + mGson.toJson(mCar3) + "\n \n"
+                + mGson.toJson(mCar4) + "\n \n";
+        wTextView.setText(carObjectInfo);
+    }
+
+
+    private void logHashCodes() {
+        //Log the hashcodes of the objects
+
+        String gsonLog = "mGson instance: " + System.identityHashCode(mGson);
+        String carLog1 = "Car1 instance: " + System.identityHashCode(mCar1);
+        String carLog2 = "Car2 instance: " + System.identityHashCode(mCar2);
+        String carLog3 = "Car3 instance: " + System.identityHashCode(mCar3);
+        String carLog4 = "Car4 instance: " + System.identityHashCode(mCar4);
+
+        Log.d(TAG, gsonLog);
+        Log.d(TAG, carLog1);
+        Log.d(TAG, carLog2);
+        Log.d(TAG, carLog3);
+        Log.d(TAG, carLog4);
     }
 
 }

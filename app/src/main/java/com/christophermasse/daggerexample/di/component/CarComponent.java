@@ -1,13 +1,14 @@
 package com.christophermasse.daggerexample.di.component;
 
 import com.christophermasse.daggerexample.activity.DetailActivity;
+import com.christophermasse.daggerexample.di.scope.PerActivity;
 
 import dagger.Component;
 
-@Component
+@PerActivity
+@Component(dependencies = {AppComponent.class})
 public interface CarComponent {
 
-    // Method used to provide our dependencies to the activity
-    void inject(DetailActivity activity);
+    void inject(DetailActivity detailActivity);
 
 }
